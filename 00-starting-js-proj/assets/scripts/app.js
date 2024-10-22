@@ -56,3 +56,17 @@ class User {
 const user2 = new User('Rock', 30);
 console.log(user2);
 console.log(user2.greet());
+
+
+const hobbies = ["Sports", "Cooking", "Reading"];
+console.log(hobbies[0]);
+
+hobbies.push("Working");
+console.log(hobbies);
+
+const index = hobbies.findIndex((item) => item === 'Sports');
+
+console.log(index);
+
+const editedHobbies = hobbies.map((item) => ({text: item}));
+console.log(editedHobbies);
