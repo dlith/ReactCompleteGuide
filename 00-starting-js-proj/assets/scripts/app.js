@@ -99,3 +99,13 @@ function greeter(greetFn) {
 }
 
 greeter(()=> console.log('Hello'));
+
+function init() {
+  function greet() {
+    console.log("Hey");
+  }
+
+  greet();
+}
+
+init();
