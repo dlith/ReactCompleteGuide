@@ -29,3 +29,30 @@ export default (message, defaultMessage) => {
   console.log(defaultMessage);
   return defaultMessage + "::: " + message; 
 }
+
+const user = {
+  name: 'Rick',
+  age: 52,
+  greet() {
+    console.log("OMG rolled");
+    console.log(this.name + " was here");
+  }
+};
+
+console.log(user);
+user.greet();
+
+class User {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    console.log('Hi!');
+  }
+}
+
+const user2 = new User('Rock', 30);
+console.log(user2);
+console.log(user2.greet());
