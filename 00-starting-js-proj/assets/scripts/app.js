@@ -93,3 +93,9 @@ const extededUser = {
 }
 
 console.log(extededUser);
+
+function greeter(greetFn) {
+  greetFn();
+}
+
+greeter(()=> console.log('Hello'));
