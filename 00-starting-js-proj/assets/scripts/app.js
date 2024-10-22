@@ -22,3 +22,10 @@ function greet(message, defaultMessage = "Rickroll") {
 
 console.log(greet(util.apiKey));
 console.log(greet(util.apiKey2));
+
+
+export default (message, defaultMessage) => {
+  console.log(message);
+  console.log(defaultMessage);
+  return defaultMessage + "::: " + message; 
+}
