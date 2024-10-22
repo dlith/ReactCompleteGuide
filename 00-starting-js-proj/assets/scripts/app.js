@@ -82,3 +82,14 @@ const {name: username, age} = {
 
 console.log(username);
 console.log(age);
+
+const newHobbies = ['Walking'];
+const mergedHobbies = [...hobbies, ...newHobbies];
+console.log(mergedHobbies);
+
+const extededUser = {
+  isAdmin: true,
+  ...user
+}
+
+console.log(extededUser);
