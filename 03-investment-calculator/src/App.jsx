@@ -3,7 +3,6 @@ import Results from "./components/Results";
 import UserInput from "./components/UserInput";
 import {useState} from "react";
 
-
 function App() {
   const [userInput, setUserInput] = useState({
     initialInvestment: 12000,
@@ -11,6 +10,8 @@ function App() {
     expectedReturn: 5.5,
     duration: 12,
   });
+
+  const inputIsValid = userInput.duration >= 1;
 
   function handleChange(inputIdentifier, newValue) {
     setUserInput((prevUserInput) => {
@@ -21,12 +22,12 @@ function App() {
     });
   }
 
-
   return (
     <>
       <Header />
       <UserInput onChange={handleChange} userInput={userInput} />
-      <Results input={userInput} />
+      {!inputIsValid && <p className="center">Please enter a duration greater than zero.</p>}
+      {inputIsValid && <Results input={userInput} />}
     </>
   );
 }
