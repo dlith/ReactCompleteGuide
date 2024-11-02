@@ -1,4 +1,8 @@
+import * as utils from "../util/investment.js";
+
 export default function Results({input}) {
   console.log(input);
-  return <p>Results...</p>
+  const computedValues = utils.calculateInvestmentResults(input);
+  console.log(computedValues);
+  return <p>Results...</p>;
 }
