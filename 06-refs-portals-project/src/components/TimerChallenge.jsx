@@ -2,21 +2,27 @@ import {useRef, useState} from "react";
 import ResultModale from "./ResultModule";
 
 export default function TimeChallenge({title, targetTime}) {
-  const [timerStarted, setTimeStarted] = useState(false);
-  const [timerExpired, setTimerExpired] = useState(false);
+  const [timeRemainig, setTimeRemainig] = useState(targetTime * 1000);
+  const timerIsActive = timeRemainig > 0 && timeRemainig < targetTime * 1000;
   const timer = useRef();
   const dialog = useRef();
 
+  if (timeRemainig <= 0) {
+    clearInterval(timer.current);
+    setTimeRemainig(targetTime * 1000);
+    dialog.current.open();
+  }
+
   function handleStart() {
-    timer.current = setTimeout(() => {
-      setTimerExpired(true);
-      dialog.current.open();
-    }, targetTime * 1000);
+    timer.current = setInterval(() => {
+      setTimeRemainig((prevTimeRemainig) => prevTimeRemainig - 10);
+    }, 10);
     setTimeStarted(true);
   }
 
   function handleStop() {
-    clearTimeout(timer.current);
+    dialog.current.open();
+    clearInterval(timer.current);
   }
 
   return (
@@ -24,14 +30,17 @@ export default function TimeChallenge({title, targetTime}) {
       <ResultModale ref={dialog} targetTime={targetTime} result="lost" />
       <section className="challenge">
         <h2>{title}</h2>
-        {timerExpired && <p>You lost!</p>}
         <p className="challenge-time">
           {targetTime} seconds{targetTime > 1 ? "s" : ""}
         </p>
         <p>
-          <button onClick={timerStarted ? handleStop : handleStart}>{timerStarted ? "Stop" : "Start"} Challenge</button>
+          <button onClick={timerIsActive ? handleStop : handleStart}>
+            {timerIsActive ? "Stop" : "Start"} Challenge
+          </button>
         </p>
-        <p className={timerStarted ? "active" : undefined}>{timerStarted ? "Time is running..." : "Timer inactive"}</p>
+        <p className={timerIsActive ? "active" : undefined}>
+          {timerIsActive ? "Time is running..." : "Timer inactive"}
+        </p>
       </section>
     </>
   );
