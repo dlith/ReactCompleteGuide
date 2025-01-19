@@ -23,6 +23,7 @@ function isPrime(number) {
   return true;
 }
 
+// After adding CounfigureCounter memo is not useful. I left it only to remember the memo function 
 const Counter = memo(function Counter({initialCount}) {
   log("<Counter /> rendered", 1);
   const initialCountIsPrime = isPrime(initialCount);
