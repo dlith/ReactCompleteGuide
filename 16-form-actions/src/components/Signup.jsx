@@ -1,7 +1,8 @@
+import {useActionState} from "react";
 import {isEmail, isNotEmpty, isEqualToOtherValue, hasMinLength} from "../util/validation";
 
 export default function Signup() {
-  function signupAction(formData) {
+  function signupAction(prevFormState, formData) {
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm-password");
@@ -11,33 +12,43 @@ export default function Signup() {
     const terms = formData.get("terms");
     const acquisitionChanel = formData.getAll("acquisition");
 
-    let error = [];
+    let errors = [];
 
     if (!isEmail(email)) {
-      error.push("Invalid email address.");
+      errors.push("Invalid email address.");
     }
     if (!isNotEmpty(password) || !hasMinLength(password, 6)) {
-      error.push("You must provide a pssword with at least six characters.");
+      errors.push("You must provide a pssword with at least six characters.");
     }
     if (!isEqualToOtherValue(password, confirmPassword)) {
-      error.push("Passords do not match.");
+      errors.push("Passords do not match.");
     }
     if (!isNotEmpty(firstName) || !isNotEmpty(lastName)) {
-      error.push("Please provide both your first and last name.");
+      errors.push("Please provide both your first and last name.");
     }
     if (!isNotEmpty(role)) {
-      error.push("Please select a role.");
+      errors.push("Please select a role.");
     }
     if (!terms) {
-      error.push("You must agree to the terms and conditions.");
+      errors.push("You must agree to the terms and conditions.");
     }
     if (acquisitionChanel.length === 0) {
-      error.push("Please select at least one acquisition channel");
+      errors.push("Please select at least one acquisition channel");
     }
+
+    if (errors.length > 0) {
+      return {errors: errors};
+    }
+
+    return {
+      errors: null,
+    };
   }
 
+  const [formState, formAction] = useActionState(signupAction, {errors: null});
+
   return (
-    <form action={signupAction}>
+    <form action={formAction}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
@@ -106,6 +117,14 @@ export default function Signup() {
           <input type="checkbox" id="terms-and-conditions" name="terms" />I agree to the terms and conditions
         </label>
       </div>
+
+      {formState.errors && (
+        <ul className="error">
+          {formState.errors.map((error) => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      )}
 
       <p className="form-actions">
         <button type="reset" className="button button-flat">
