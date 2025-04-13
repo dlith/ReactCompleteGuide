@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useActionState} from "react";
 import Modal from "./UI/Modal";
 import CartContext from "../store/CartContext";
 import {currencyFormatter} from "../util/formatting.jsx";
@@ -19,13 +19,7 @@ export default function CHeckout() {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
 
-  const {
-    data,
-    isLoading: isSending,
-    error,
-    sendRequest,
-    clearData,
-  } = useHttp("http://localhost:3000/orders", requestConfig);
+  const {data, error, sendRequest, clearData} = useHttp("http://localhost:3000/orders", requestConfig);
 
   const cartTotal = cartCtx.items.reduce((totalPrice, item) => totalPrice + item.quantity * item.price, 0);
 
@@ -39,7 +33,7 @@ export default function CHeckout() {
     clearData();
   }
 
-  async function checkoutAction(fd) {
+  async function checkoutAction(prevState, fd) {
     const customerData = Object.fromEntries(fd.entries());
 
     await sendRequest(
@@ -51,6 +45,8 @@ export default function CHeckout() {
       })
     );
   }
+
+  const [formState, formAction, isSending] = useActionState(checkoutAction, null);
 
   let actions = (
     <>
@@ -80,7 +76,7 @@ export default function CHeckout() {
 
   return (
     <Modal open={userProgressCtx.progress === "checkout"} onClose={handleClose}>
-      <form action={checkoutAction}>
+      <form action={formAction}>
         <h2>Checkout</h2>
         <p>Total amount: {currencyFormatter.format(cartTotal)}</p>
 
