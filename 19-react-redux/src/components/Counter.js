@@ -4,9 +4,9 @@ import {Component} from "react";
 import {counterActions} from "../store/index";
 
 const Counter = () => {
-  const couter = useSelector((state) => state.counter);
+  const couter = useSelector((state) => state.counter.counter);
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.showCounter);
+  const show = useSelector((state) => state.counter.showCounter);
 
   const incrementHandler = () => {
     dispatch(counterActions.increment());
