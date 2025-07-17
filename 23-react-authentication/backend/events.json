@@ -1,12 +1,1 @@
-{
-  "events": [
-    {
-      "title": "A new event",
-      "image": "https://cdn.muenchen-p.de/fl_progressive,q_65/.imaging/stk/responsive/teaser300/dms/va-2016/muenchner-christkindlmarkt/christkindlmarkt-marienplat-logo-hp/document/christkindlmarkt-marienplat-logo-hp.jpg",
-      "date": "2022-10-01",
-      "description": "Some awesome event!",
-      "id": "2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"
-    }
-  ],
-  "users": []
-}
+{"events":[{"title":"test321","image":"https://kinsta.com/wp-content/uploads/2021/02/what-is-a-url-1024x512.jpg","date":"2025-07-17","description":"123123123123","id":"78909533-7d28-4502-8e44-6daa9d8a97d9"}],"users":[{"email":"test@wp.pl","password":"$2a$12$lH.S5BQ9frlaeS2xQccBEeINzWgJviOcx69PK/ox0l1omdPFvteoq","id":"8ee4f045-4a57-4bf0-8d45-4bf771509bf5"}]}
